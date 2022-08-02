@@ -37,15 +37,8 @@ namespace NumberGuesser
 
             //Set Console Name
             Console.Title = appName;
-
-            //Change Text Color
-            Console.ForegroundColor = ConsoleColor.Green;
-
-            //Writes Title
-            Console.WriteLine("{0}: Version {1} by {2}", appName, appVersion, appAuthor);
-
-            //Removes Color
-            Console.ResetColor();
+            string intro = appName + ": Version " + appVersion + " by " + appAuthor;
+            printColorMessage(intro, ConsoleColor.Green);
         }
 
         //the game itself
@@ -63,9 +56,7 @@ namespace NumberGuesser
                 randomNumber = (rnd.Next() % 20) + 1;
                 userGuess = 0;
 
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Guess a number between 1 and 20.");
-                Console.ResetColor();
+                printColorMessage("Guess a number between 1 and 20.", ConsoleColor.Yellow);
 
                 //keeps looping until user makes the correct guess
                 while (randomNumber != userGuess)
@@ -90,24 +81,18 @@ namespace NumberGuesser
                         //number too low
                         if (userGuess < randomNumber)
                         {
-                            Console.ForegroundColor = ConsoleColor.Magenta;
-                            Console.WriteLine("Higher...");
-                            Console.ResetColor();
+                            printColorMessage("Higher...", ConsoleColor.Magenta);
                         }
                         //number too high
                         else if (userGuess > randomNumber)
                         {
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine("Lower...");
-                            Console.ResetColor();
+                            printColorMessage("Lower...", ConsoleColor.Cyan);
                         }
                     }
 
                 }
                 //congratulates the user for guessing correctly
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("You got it!");
-                Console.ResetColor();
+                printColorMessage("You got it!", ConsoleColor.Green);
 
                 repeat = askRematch();
             }
@@ -136,6 +121,13 @@ namespace NumberGuesser
                 }
             }
             return false;
+        }
+
+        static void printColorMessage(string message, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(message);
+            Console.ResetColor();
         }
     }
 }
