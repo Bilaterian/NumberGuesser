@@ -105,7 +105,7 @@ namespace NumberGuesser
                 Console.WriteLine("Play Again? (Y/N):");
                 while (response != "Y" && response != "N")
                 {
-                    response = Console.ReadLine();
+                    response = Console.ReadLine().ToUpper();
                     if(response == "Y")
                     {
                         repeat = true;
