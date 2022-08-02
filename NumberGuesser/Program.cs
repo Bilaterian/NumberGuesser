@@ -17,6 +17,19 @@ namespace NumberGuesser
             //Console.WriteLine("Hello World");
             //Console.WriteLine("{0} {1}", "Hello", "World");
 
+            printIntro();
+
+            //Get Name
+            Console.WriteLine("What is your name?");
+            string userName = Console.ReadLine();
+            Console.WriteLine("Hello {0}, let's play a game...", userName);
+
+            playGame();
+        }
+
+        //for printing game info to console
+        static void printIntro()
+        {
             //Set App Vars
             string appName = "Number Guesser";
             string appVersion = "1.0.0";
@@ -33,13 +46,6 @@ namespace NumberGuesser
 
             //Removes Color
             Console.ResetColor();
-
-            //Get Name
-            Console.WriteLine("What is your name?");
-            string userName = Console.ReadLine();
-            Console.WriteLine("Hello {0}, let's play a game...", userName);
-
-            playGame();
         }
 
         //the game itself
@@ -47,14 +53,16 @@ namespace NumberGuesser
         {
             //for generating a new random number
             Random rnd = new Random();
-
-            //setting random number between 1 and 20
-            int randomNumber = (rnd.Next() % 20) + 1;
+            int randomNumber = 0;
             int userGuess = 0;
             bool repeat = true;
             
             while(repeat == true)
             {
+                //setting random number between 1 and 20
+                randomNumber = (rnd.Next() % 20) + 1;
+                userGuess = 0;
+
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Guess a number between 1 and 20.");
                 Console.ResetColor();
@@ -101,29 +109,33 @@ namespace NumberGuesser
                 Console.WriteLine("You got it!");
                 Console.ResetColor();
 
-                string response = "blah";
-                Console.WriteLine("Play Again? (Y/N):");
-                while (response != "Y" && response != "N")
-                {
-                    response = Console.ReadLine().ToUpper();
-                    if(response == "Y")
-                    {
-                        repeat = true;
-                        randomNumber = (rnd.Next() % 20) + 1;
-                        userGuess = 0;
-                    }
-                    else if(response == "N")
-                    {
-                        repeat = false;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please answer with Y or N.");
-                    }
-                }
-                
+                repeat = askRematch();
             }
             
+        }
+
+        //responsible for looping game
+        static Boolean askRematch()
+        {
+            string response = "blah";
+            Console.WriteLine("Play Again? (Y/N):");
+            while (response != "Y" && response != "N")
+            {
+                response = Console.ReadLine().ToUpper();
+                if (response == "Y")
+                {
+                    return true;
+                }
+                else if (response == "N")
+                {
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("Please answer with Y or N.");
+                }
+            }
+            return false;
         }
     }
 }
